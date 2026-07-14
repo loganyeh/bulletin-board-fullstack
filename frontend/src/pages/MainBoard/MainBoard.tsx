@@ -22,14 +22,18 @@ function MainBoard(){
         <>
             <div className="relative flex flex-col h-screen">
                 {/* Header */}
-                <div className=" flex justify-between p-3 h-12 bg-[rgb(71,54,153)] text-white">
+                <div className=" flex lg:gap-5 justify-between p-3 h-12 bg-[rgb(71,54,153)] text-white">
                     <div className="flex gap-3 items-center">
                         <i className='bx bx-grid-alt text-xl'></i>
                         <i className='bx bxl-trello text-3xl'></i>
                     </div>
 
-                    <div className="flex gap-3 items-center">
-                        <i className='bx bx-search text-xl' ></i>
+                    <div className="lg:flex-1 flex gap-3 items-center">
+                        {/* fix the heights of the search and create btn */}
+                        <div className="flex-1 flex lg:gap-2 justify-center lg:justify-start items-center lg:px-2 lg:py-1 lg:bg-white/20 lg:rounded">
+                            <i className='bx bx-search text-xl' ></i>
+                            <p className="hidden lg:flex font-light">Search</p>
+                        </div>
                         <button className="px-3 py-1 font-medium bg-[rgb(108,94,173)] rounded">Create</button>
                     </div>
 
