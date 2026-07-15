@@ -7,7 +7,7 @@ import BoardHeader from "./BoardHeader";
 import MobileNav from "./MobileNav";
 import FloatingNav from "./FloatingNav";
 import AddAnotherListBtn from "./AddAnotherListBtn";
-import AddListCardForm from "./EnterListName";
+import EnterListName from "./EnterListName";
 import List from "./List";
 
 function MainBoard(){
@@ -21,12 +21,13 @@ function MainBoard(){
 
                 {/* Body for Boards */}
                 <div className="flex-1 flex items-start gap-3 p-3 bg-gradient-to-br from-[rgb(113,94,198)] to-[rgb(224,115,188)] overflow-x-scroll scrollbar-hide">
-                    <List />
+                    <List listName="Today" taskList={["Test 1", "Test 2"]} />
+                    {/* <List listName="Tomorrow" /> */}
 
                     {!isAddAnotherList ? 
                         <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
                         : 
-                        <AddListCardForm setIsAddAnotherList={setIsAddAnotherList} />
+                        <EnterListName setIsAddAnotherList={setIsAddAnotherList} />
                     }
                 </div>
 
