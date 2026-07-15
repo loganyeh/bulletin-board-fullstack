@@ -26,9 +26,10 @@ function MainBoard(){
                     <div className="flex gap-3 items-center">
                         <i className='bx bx-grid-alt text-xl'></i>
                         <i className='bx bxl-trello text-3xl'></i>
+                        <p className="hidden xl:flex font-medium tracking-wider">Trello</p>
                     </div>
 
-                    <div className="lg:flex-1 flex gap-3 items-center">
+                    <div className="lg:flex-1 flex gap-3 items-center xl:w-full xl:max-w-4xl">
                         <div className="lg:border lg:border-[rgb(140,143,151)] flex-1 flex lg:gap-2 justify-center lg:justify-start items-center lg:px-2 lg:py-1 lg:bg-white/20 lg:rounded">
                             <i className='bx bx-search text-xl' ></i>
                             <p className="hidden lg:flex font-light">Search</p>
