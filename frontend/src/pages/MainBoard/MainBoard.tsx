@@ -41,7 +41,7 @@ function MainBoard(){
                         <i className='bx bxs-megaphone' ></i>
                         <i className='bx bx-bell' ></i>
                         <i className='bx bx-help-circle' ></i>
-                        <div className="flex justify-center items-center h-6 w-6 text-sm bg-amber-300 text-black rounded-full">K</div>
+                        <div className="flex justify-center items-center h-6 w-6 text-sm bg-amber-500 text-black rounded-full">K</div>
                     </div>
                     <div className="md:hidden flex items-center">
                         <i className='bx bx-dots-horizontal-rounded text-2xl' ></i>
@@ -61,7 +61,7 @@ function MainBoard(){
                     </div>
 
                     <div className="flex gap-2 items-center text-2xl">
-                        <div className="hidden lg:flex justify-center items-center h-6 w-6 text-sm bg-amber-300 text-black rounded-full">K</div>
+                        <div className="hidden lg:flex justify-center items-center h-6 w-6 text-sm bg-amber-500 text-black rounded-full">K</div>
 
                         <div className="hidden border-0 lg:flex justify-center items-center w-[32px] aspect-square rounded">
                             <i className='bx bx-plug' ></i>
@@ -173,9 +173,9 @@ function MainBoard(){
                     </div>
                 </div>
 
-                {/* Bottom Nav */}
-                <div className="md:hidden flex gap-2 p-2.5 h-16">
-                    <div className="grid gap-2 grid-cols-3 w-10/12">
+                {/* Bottom Static Nav */}
+                <div className="md:hidden flex h-16">
+                    <div className="grid gap-3 grid-cols-3 p-3 w-10/12">
                         {bottomNav.map((nav, index) => {
                             return <div key={index} className={`${index === 2 ? "bg-[rgb(207,225,253)] text-gray-600" : ""} flex justify-center items-center rounded-lg`}>
                                 <div className={`${index === 2 ? "border-b-2 border-[rgb(24,104,219)]" : ""} flex items-center h-full`}>
@@ -185,26 +185,28 @@ function MainBoard(){
                         })}
                     </div>
 
-                    <div className="border-l border-gray-300 flex-1 flex justify-center items-center">
-                        <i className='bx bx-bookmarks text-lg'></i>
+                    <div className="flex-1 flex justify-center items-center">
+                        <div className="border-l border-gray-300 flex justify-center items-center p-3 w-full">
+                            <i className='bx bx-bookmarks text-lg'></i>
+                        </div>
                     </div>
                 </div>
                 {/* Bottom Floating Nav */}
-                <div className="hidden absolute bottom-4 left-1/2 -translate-x-1/2 md:flex gap-2 px-3 py-2 bg-white rounded-lg shadow">
-                    <div className="flex gap-4 justify-around">
+                <div className="hidden absolute bottom-3 left-1/2 -translate-x-1/2 md:flex gap-2 p-2 bg-white text-gray-800 rounded-lg shadow-md">
+                    <div className="flex gap-2">
                         {bottomFloatingNav.map((nav, index) => {
-                            return <div key={index} className={`${index === 2 ? "bg-[rgb(207,225,253)] text-gray-600" : ""} flex justify-center items-center rounded-lg`}>
-                                <div className={`${index === 2 ? "border-b-2 border-[rgb(24,104,219)] rounded-b" : ""} flex gap-2 items-center px-2 py-0.5 h-full`}>
-                                    <i className={`${nav.icon} text-lg`} ></i>
-                                    <p className="font-medium">{nav.title}</p>
-                                </div>
+                            return <div key={index} className={`${index === 2 ? "border-b-2 border-[rgb(24,104,219)] bg-[rgb(207,225,253)] text-blue-600 rounded-b-md" : ""} flex gap-1.5 justify-center items-center px-3 py-0.5 rounded-md`}>
+                                <i className={`${nav.icon} text-lg`} ></i>
+                                <p className="font-medium">{nav.title}</p>
                             </div>
                         })}
                     </div>
 
-                    <div className="border-l border-gray-300 flex-1 flex gap-2 justify-center items-center px-4 whitespace-nowrap">
-                        <i className='bx bx-bookmarks text-lg'></i>
-                        <p className="font-medium">Switch boards</p>
+                    <div className="border-l border-gray-300 px-1">
+                        <div className="flex-1 flex gap-1.5 justify-center items-center px-3 py-0.5 whitespace-nowrap">
+                            <i className='bx bx-bookmarks text-lg'></i>
+                            <p className="font-medium">Switch boards</p>
+                        </div>
                     </div>
                 </div>
 
