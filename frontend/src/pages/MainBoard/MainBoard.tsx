@@ -22,19 +22,18 @@ function MainBoard(){
         <>
             <div className="relative flex flex-col h-screen">
                 {/* Header */}
-                <div className=" flex lg:gap-5 justify-between p-3 h-12 bg-[rgb(71,54,153)] text-white">
+                <div className="flex lg:gap-5 justify-between px-4 h-12 bg-[rgb(71,54,153)] text-white">
                     <div className="flex gap-3 items-center">
                         <i className='bx bx-grid-alt text-xl'></i>
                         <i className='bx bxl-trello text-3xl'></i>
                     </div>
 
                     <div className="lg:flex-1 flex gap-3 items-center">
-                        {/* fix the heights of the search and create btn */}
-                        <div className="flex-1 flex lg:gap-2 justify-center lg:justify-start items-center lg:px-2 lg:py-1 lg:bg-white/20 lg:rounded">
+                        <div className="lg:border lg:border-[rgb(140,143,151)] flex-1 flex lg:gap-2 justify-center lg:justify-start items-center lg:px-2 lg:py-1 lg:bg-white/20 lg:rounded">
                             <i className='bx bx-search text-xl' ></i>
                             <p className="hidden lg:flex font-light">Search</p>
                         </div>
-                        <button className="px-3 py-1 font-medium bg-[rgb(108,94,173)] rounded">Create</button>
+                        <button className="flex items-center px-3 py-1 font-medium bg-[rgb(108,94,173)] rounded">Create</button>
                     </div>
 
                     <div className="hidden md:flex gap-4 items-center text-xl">
@@ -50,7 +49,7 @@ function MainBoard(){
                 </div>
 
                 {/* Bulletin Board Nav */}
-                <div className="border-t border-[rgb(100,86,169)] flex justify-between px-5 py-3 h-14 bg-gradient-to-r from-[rgb(84,71,151)] to-[rgb(121,78,147)] text-white">
+                <div className="border-t border-[rgb(100,86,169)] flex justify-between px-6 py-3 h-14 bg-gradient-to-r from-[rgb(84,71,151)] to-[rgb(121,78,147)] text-white">
                     <div className="flex gap-5 items-center">
                         <h1 className="font-semibold tracking-wide">My Trello Board</h1>
 
@@ -60,7 +59,17 @@ function MainBoard(){
                         </div>
                     </div>
 
-                    <div className="flex gap-2 text-2xl">
+                    <div className="flex gap-2 items-center text-2xl">
+                        <div className="hidden lg:flex justify-center items-center h-6 w-6 text-sm bg-amber-300 text-black rounded-full">K</div>
+
+                        <div className="hidden border-0 lg:flex justify-center items-center w-[32px] aspect-square rounded">
+                            <i className='bx bx-plug' ></i>
+                        </div>
+
+                        <div className="hidden border-0 lg:flex justify-center items-center w-[32px] aspect-square rounded">
+                            <i className='bx bxs-zap' ></i>
+                        </div>
+
                         <div className="border-0 flex justify-center items-center w-[32px] aspect-square rounded">
                             <i className='bx bx-filter' ></i>
                         </div>
@@ -73,7 +82,7 @@ function MainBoard(){
                             <i className='bx bx-lock' ></i>
                         </div>
 
-                        <button className="hidden md:flex gap-1.5 px-3 py-2 items-center bg-white text-black rounded-sm">
+                        <button className="hidden md:flex gap-1.5 px-3 py-1.5 items-center bg-white text-black rounded-sm">
                             <i className='bx bx-user-plus' ></i>
                             <p className="text-sm">Share</p>
                         </button>
