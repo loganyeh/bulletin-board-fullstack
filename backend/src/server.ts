@@ -3,11 +3,14 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+// routes
+import BoardRoutes from "./routes/board.routes.js";
+
 dotenv.config();
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
 
 if(!MONGO_URI) {
@@ -21,6 +24,8 @@ app.use((req, res, next) => {
     console.log(req.method, req.path);
     next();
 });
+
+app.use("/", BoardRoutes);
 
 mongoose.connect(MONGO_URI)
     .then(() => {

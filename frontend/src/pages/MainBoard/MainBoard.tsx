@@ -1,5 +1,5 @@
 // imports
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // components
 import Header from "./Header";
@@ -10,8 +10,19 @@ import AddAnotherListBtn from "./AddAnotherListBtn";
 import EnterListName from "./EnterListName";
 import List from "./List";
 
+// type alias
+type taskList = {
+    title: string, 
+    tasks: [
+        {
+            task: string,
+        },
+    ],
+};
+
 function MainBoard(){
     const [isAddAnotherList, setIsAddAnotherList] = useState(false);
+    const [board, setBoard] = useState();
 
     return(
         <>
