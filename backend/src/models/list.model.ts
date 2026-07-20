@@ -5,11 +5,7 @@ const listSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tasks:[
-        {
-            task: String,
-        },
-    ],
+    tasks: [String],
 });
 
 const List = mongoose.model("List", listSchema);
