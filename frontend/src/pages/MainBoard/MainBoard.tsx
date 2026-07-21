@@ -12,6 +12,7 @@ import List from "./List";
 
 // type alias
 type taskList = {
+    _id: string,
     title: string, 
     tasks: string[],
 };
@@ -39,7 +40,7 @@ function MainBoard(){
                 {/* Body for Boards */}
                 <div className="flex-1 flex items-start gap-3 p-3 bg-gradient-to-br from-[rgb(113,94,198)] to-[rgb(224,115,188)] overflow-x-scroll scrollbar-hide">
                     {board.map((list, index) => {
-                        return <List key={index} listName={list.title} taskList={list.tasks} />
+                        return <List key={index} getLists={getLists} listName={list.title} taskList={list.tasks} id={list._id} />
                     })}
 
                     {!isAddAnotherList ? 

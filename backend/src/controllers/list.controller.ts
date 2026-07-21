@@ -19,4 +19,15 @@ export async function createList(req: Request, res: Response){
     };
 };
 
+export async function deleteList(req: Request, res: Response){
+    const id = req.params.id;
+
+    const deletedList = await List.findByIdAndDelete(id);
+
+    return res.status(200).json({
+        message: "Deleted list succesful", 
+        deletedList,
+    });
+};
+
 

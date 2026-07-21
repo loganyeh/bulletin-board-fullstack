@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 type ListProps = {
+    getLists: () => Promise<void>;
     listName: string,
     taskList?: string[],
+    id: string,
 };
 
-function List({ listName, taskList = [] }: ListProps ){
+function List({ getLists, listName, taskList = [], id }: ListProps ){
     const [isAddCard, setIsAddCard] = useState(false);
     const [isListActions, setIsListActions] = useState(false);
     const listActions = [
@@ -20,6 +22,14 @@ function List({ listName, taskList = [] }: ListProps ){
         "Every Monday, sort list by", 
         "Create a rule"
     ];
+
+    async function deleteList(){
+        await fetch(`http://localhost:3000/${id}`, {
+            method: "DELETE",
+        });
+
+        await getLists();
+    };
     
     return(
         <>
@@ -30,12 +40,12 @@ function List({ listName, taskList = [] }: ListProps ){
                     <div className="flex gap-2 items-center text-gray-600">
                         <p>{taskList.length}</p>
                         <div className="relative flex justify-center items-center rounded hover:bg-gray-300">
-                            <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-dots-horizontal-rounded p-1 text-xl' ></i>
+                            <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-dots-horizontal-rounded p-1 text-xl cursor-pointer' ></i>
                             {isListActions && <div className="border border-gray-300 absolute top-full left-0 mt-2 px-3 w-72 bg-white rounded-lg shadow-md">
                                 <div className="border-b flex gap-2 flex-col py-3">
                                     <div className="relative flex justify-end items-center">
                                         <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold whitespace-nowrap">List actions</p>
-                                        <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-x text-2xl hover:bg-gray-300 rounded-lg'></i>
+                                        <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-x text-2xl hover:bg-gray-300 rounded-lg cursor-pointer'></i>
                                     </div>
 
                                     <div className="flex gap-2.5 flex-col">
@@ -62,7 +72,7 @@ function List({ listName, taskList = [] }: ListProps ){
                                     </div>
                                 </div>
 
-                                <p className="text-sm my-3 hover:bg-gray-300">Archive this list</p>
+                                <p onClick={() => deleteList()} className="text-sm my-3 hover:bg-gray-300 cursor-pointer">Archive this list</p>
 
                             </div>}
                         </div>

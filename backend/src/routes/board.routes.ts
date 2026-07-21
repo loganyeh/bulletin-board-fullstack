@@ -1,6 +1,6 @@
 import express from "express";
 import { 
-    getLists, createList
+    getLists, createList, deleteList
  } from "../controllers/list.controller.js";
 
 const router = express.Router();
@@ -10,6 +10,9 @@ router.get("/", getLists);
 
 // CREATE list
 router.post("/", createList);
+
+// DELETE list
+router.delete("/:id", deleteList);
 
 
 export default router;
