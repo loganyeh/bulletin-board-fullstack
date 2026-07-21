@@ -7,6 +7,19 @@ type ListProps = {
 
 function List({ listName, taskList = [] }: ListProps ){
     const [isAddCard, setIsAddCard] = useState(false);
+    const [isListActions, setIsListActions] = useState(true);
+    const listActions = [
+        "Add card", 
+        "Copy list", 
+        "Move list", 
+        "Watch", 
+    ];
+    const automation = [
+        "When a card is added to the list", 
+        "Every day, sort list by", 
+        "Every Monday, sort list by", 
+        "Create a rule"
+    ];
     
     return(
         <>
@@ -16,7 +29,21 @@ function List({ listName, taskList = [] }: ListProps ){
 
                     <div className="flex gap-2 items-center text-gray-600">
                         <p>{taskList.length}</p>
-                        <i className='bx bx-dots-horizontal-rounded text-xl' ></i>
+                        <div className="relative border flex justify-center items-center rounded hover:bg-gray-300">
+                            <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-dots-horizontal-rounded text-xl' ></i>
+                            {isListActions && <div className="border absolute top-full left-0 mt-2 w-68 bg-white rounded">
+                                <div className="flex justify-between items-center">
+                                    <p>List actions</p>
+                                    <i className='bx bx-x'></i>
+                                </div>
+
+                                {listActions.map((action, index) => {
+                                    return <div key={index} className="border whitespace-nowrap">
+                                        {action}
+                                    </div>
+                                })}
+                            </div>}
+                        </div>
                     </div>
                 </div>
 

@@ -12,12 +12,11 @@ export async function createList(req: Request, res: Response){
         const newList = await List.create(req.body);
 
         return res.status(201).json(newList);
-        
     } catch (error) {
         return res.status(500).json({
             message: "Failed to create new list"
         });
-    }
+    };
 };
 
 
