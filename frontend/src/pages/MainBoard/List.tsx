@@ -7,7 +7,7 @@ type ListProps = {
 
 function List({ listName, taskList = [] }: ListProps ){
     const [isAddCard, setIsAddCard] = useState(false);
-    const [isListActions, setIsListActions] = useState(true);
+    const [isListActions, setIsListActions] = useState(false);
     const listActions = [
         "Add card", 
         "Copy list", 
@@ -29,31 +29,53 @@ function List({ listName, taskList = [] }: ListProps ){
 
                     <div className="flex gap-2 items-center text-gray-600">
                         <p>{taskList.length}</p>
-                        <div className="relative border flex justify-center items-center rounded hover:bg-gray-300">
-                            <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-dots-horizontal-rounded text-xl' ></i>
-                            {isListActions && <div className="border absolute top-full left-0 mt-2 w-68 bg-white rounded">
-                                <div className="flex justify-between items-center">
-                                    <p>List actions</p>
-                                    <i className='bx bx-x'></i>
+                        <div className="relative flex justify-center items-center rounded hover:bg-gray-300">
+                            <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-dots-horizontal-rounded p-1 text-xl' ></i>
+                            {isListActions && <div className="border border-gray-300 absolute top-full left-0 mt-2 px-3 w-72 bg-white rounded-lg shadow-md">
+                                <div className="border-b flex gap-2 flex-col py-3">
+                                    <div className="relative flex justify-end items-center">
+                                        <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold whitespace-nowrap">List actions</p>
+                                        <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-x text-2xl hover:bg-gray-300 rounded-lg'></i>
+                                    </div>
+
+                                    <div className="flex gap-2.5 flex-col">
+                                        {listActions.map((action, index) => {
+                                            return <div key={index} className="text-sm whitespace-nowrap">
+                                                {action}
+                                            </div>
+                                        })}
+                                    </div>
                                 </div>
 
-                                {listActions.map((action, index) => {
-                                    return <div key={index} className="border whitespace-nowrap">
-                                        {action}
+                                <div className="border-b pb-3">
+                                    <div className="flex justify-between items-center py-3">
+                                        <p className="text-sm font-semibold">Automation</p>
+                                        <i className='bx bx-chevron-up text-2xl' ></i>
                                     </div>
-                                })}
+
+                                    <div className="flex gap-2.5 flex-col">
+                                        {automation.map((automation, index) => {
+                                            return <div key={index} className="text-sm">
+                                                {automation}
+                                            </div>
+                                        })}
+                                    </div>
+                                </div>
+
+                                <p className="text-sm my-3 hover:bg-gray-300">Archive this list</p>
+
                             </div>}
                         </div>
                     </div>
                 </div>
 
-                <div className="flex gap-2 flex-col font-light tracking-wide">
-                    {taskList.length > 0 && taskList.map((_, index) => {
+                {taskList.length > 0 && <div className="flex gap-2 flex-col font-light tracking-wide">
+                    {taskList.map((_, index) => {
                         return <div key={index} className="border border-gray-200 px-2 py-1 bg-white rounded-lg shadow-md">
                             Test {index + 1} 
                         </div>
                     })}
-                </div>
+                </div>}
 
                 {!isAddCard ? 
                     <div onClick={() => setIsAddCard(prev => !prev)} className="flex gap-4 justify-between items-center text-gray-600">
