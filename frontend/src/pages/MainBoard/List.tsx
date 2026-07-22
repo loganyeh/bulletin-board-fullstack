@@ -55,6 +55,14 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
 
         getLists();
     };
+
+    async function flipCompleted(listID: string, taskID: string){
+        await fetch(`http://localhost:3000/${listID}/task/${taskID}`, {
+            method: "PATCH",
+        });
+
+        getLists();
+    };
     
     return(
         <>
@@ -109,10 +117,10 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                 {taskList.length > 0 && <div className="flex gap-2 flex-col font-light tracking-wide">
                     {taskList.map((task, index) => {
                         return <div key={index} className="relative flex border border-gray-200 px-3 py-1.5 bg-white rounded-lg shadow-md cursor-pointer group hover:border-2 hover:border-blue-600">
-                            <div className="border absolute top-1/2 -translate-y-1/2 w-4 aspect-square group-hover:flex opacity-0 transition-opacity duration-350 group-hover:opacity-100 rounded-full">
-                                <i className="bx bx-check text-sm h-full w-full"></i>
+                            <div className={`border absolute top-1/2 -translate-y-1/2 flex justify-center items-center h-4 w-4 group-hover:flex opacity-0 transition-opacity duration-350 group-hover:opacity-100 rounded-full ${task.completed ? "opacity-100" : ""}`}>
+                                <i onClick={() => flipCompleted(id, task._id)} className={`bx bx-check ${task.completed ? "text-green-500 hover:text-red-600" : "text-black hover:text-green-500"}`}></i>
                             </div>
-                            <p className="transition-transform duration-600 group-hover:translate-x-5">{task.task}</p>
+                            <p className={`transition-transform duration-600 group-hover:translate-x-5 ${task.completed ? "translate-x-5" : ""}`}>{task.task}</p>
                             <div className="hidden absolute right-2 top-1/2 -translate-y-1/2 group-hover:flex">
                                 <i onClick={() => deleteTask(id, task._id)} className='bx bx-trash text-xl text-gray-700 hover:text-red-600'></i>
                                 {/* <i onClick={() => deleteTask(id, task._id)} className='bx bx-edit text-xl text-gray-700'></i> */}

@@ -69,3 +69,34 @@ export async function deleteTask(req: Request, res: Response){
         updatedList,
     });
 };
+
+export async function updateTask(req: Request, res: Response) {
+    const { taskID, listID } = req.params;
+
+    const list = await List.findById(listID);
+
+    if (!list) {
+        return res.status(404).json({
+            message: "List not found",
+        });
+    }
+
+    const task = list.tasks.find(
+        (task) => task._id.toString() === taskID
+    );
+
+    if (!task) {
+        return res.status(404).json({
+            message: "Task not found",
+        });
+    }
+
+    task.completed = !task.completed;
+
+    await list.save();
+
+    return res.status(200).json({
+        message: "Updated boolean value",
+        list,
+    });
+};

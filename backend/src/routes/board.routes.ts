@@ -1,7 +1,7 @@
 import express from "express";
 import { 
     getLists, createList, deleteList,
-    addTask, deleteTask
+    addTask, deleteTask, updateTask
  } from "../controllers/list.controller.js";
 
 const router = express.Router();
@@ -20,5 +20,7 @@ router.patch("/:id", addTask);
 
 // DELETE task
 router.delete("/:listID/task/:taskID", deleteTask);
+
+router.patch("/:listID/task/:taskID", updateTask);
 
 export default router;
