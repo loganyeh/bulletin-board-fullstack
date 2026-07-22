@@ -11,10 +11,16 @@ import EnterListName from "./EnterListName";
 import List from "./List";
 
 // type alias
+export type Task = {
+    _id: string
+    task: string,
+    completed: boolean,
+};
+
 type taskList = {
     _id: string,
     title: string, 
-    tasks: string[],
+    tasks: Task[],
 };
 
 function MainBoard(){
