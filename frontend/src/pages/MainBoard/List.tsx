@@ -72,8 +72,10 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                     <h2 className="font-medium">{listName}</h2>
 
                     <div className="flex gap-2 items-center text-gray-600">
+                        {/* Num of Tasks */}
                         <p>{taskList.length}</p>
-                        <div className="relative flex justify-center items-center rounded hover:bg-gray-300">
+                        {/* List Actions Menu */}
+                        <div className="relative z-10 flex justify-center items-center rounded hover:bg-gray-300">
                             <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-dots-horizontal-rounded p-1 text-xl cursor-pointer' ></i>
                             {isListActions && <div className="border border-gray-300 absolute top-full left-0 mt-2 px-3 w-72 bg-white rounded-lg shadow-md">
                                 <div className="border-b flex gap-2 flex-col py-3">
@@ -113,18 +115,30 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                     </div>
                 </div>
 
-                {/* TO DO TASKS */}
+                {/* List of TASKS */}
                 {taskList.length > 0 && <div className="flex gap-2 flex-col font-light tracking-wide">
                     {taskList.map((task, index) => {
-                        return <div key={index} className="relative flex border border-gray-200 px-3 py-1.5 bg-white rounded-lg shadow-md cursor-pointer group hover:border-2 hover:border-blue-600">
-                            <div className={`border absolute top-1/2 -translate-y-1/2 flex justify-center items-center h-4 w-4 group-hover:flex opacity-0 transition-opacity duration-350 group-hover:opacity-100 rounded-full ${task.completed ? "opacity-100" : ""}`}>
-                                <i onClick={() => flipCompleted(id, task._id)} className={`bx bx-check ${task.completed ? "text-green-500 hover:text-red-600" : "text-black hover:text-green-500"}`}></i>
+                        return <div key={index} className="border border-gray-200 relative flex px-3 py-1.5 bg-white rounded-lg shadow-md cursor-pointer group hover:border-2 hover:border-blue-600">
+                            {/* Check Mark */}
+                            <div onClick={() => flipCompleted(id, task._id)} className={`${task.completed ? "bg-[rgb(106,154,35)] opacity-100 hover:bg-[rgb(126,174,55)]" : "border opacity-0"}  absolute top-1/2 -translate-y-1/2 flex justify-center items-center h-4 w-4 rounded-full
+                            group-hover:flex  
+                            transition-opacity duration-350 group-hover:opacity-100
+                            transition-transform active:scale-[0.85]
+                            `}>
+                                <i className="bx bx-check text-white"></i>
                             </div>
-                            <p className={`transition-transform duration-600 group-hover:translate-x-5 ${task.completed ? "translate-x-5" : ""}`}>{task.task}</p>
+
+                            {/* Task Name */}
+                            <p className={`${task.completed ? "translate-x-6" : "transition-transform duration-600 group-hover:translate-x-6"}`}>{task.task}</p>
+
+                            {/* Delete */}
                             <div className="hidden absolute right-2 top-1/2 -translate-y-1/2 group-hover:flex">
-                                <i onClick={() => deleteTask(id, task._id)} className='bx bx-trash text-xl text-gray-700 hover:text-red-600'></i>
-                                {/* <i onClick={() => deleteTask(id, task._id)} className='bx bx-edit text-xl text-gray-700'></i> */}
+                                <i onClick={() => deleteTask(id, task._id)} className='bx bx-trash text-xl text-gray-700 
+                                hover:text-red-600 active:text-red-500
+                                transition-transform active:scale-[0.85]
+                                '></i>
                             </div>
+
                         </div>
                     })}
                 </div>}
