@@ -1,14 +1,21 @@
+// import state
 import { useState } from "react";
 import type { Task } from "./MainBoard";
 
+// import service
+import { deleteList, addTask, deleteTask, 
+    toggleComplete, updateTask } 
+    from "../../services/backend/boardService";
+
+// type alias
 type ListProps = {
-    getLists: () => Promise<void>;
+    handleGetLists: () => Promise<void>;
     listName: string,
     taskList?: Task[],
-    id: string,
+    listID: string,
 };
 
-function List({ getLists, listName, taskList = [], id }: ListProps ){
+function List({ handleGetLists, listName, taskList = [], listID }: ListProps ){
     const [isAddCard, setIsAddCard] = useState(false);
     const [isListActions, setIsListActions] = useState(false);
     const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
@@ -27,58 +34,31 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
         "Create a rule"
     ];
 
-    async function deleteList(){
-        await fetch(`http://localhost:3000/${id}`, {
-            method: "DELETE",
-        });
-
-        await getLists();
+    async function handleDeleteList(){
+        await deleteList(listID);
+        await handleGetLists();
     };
 
-    async function addTask(task: string){
-        await fetch(`http://localhost:3000/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                task: task
-            }),
-        });
-
+    async function handleAddTask(){
+        await addTask(listID, task);
         setTask("");
-        getLists();
+        handleGetLists();
     };
 
-    async function deleteTask(listID: string, taskId: string){
-        await fetch(`http://localhost:3000/${listID}/task/${taskId}`, {
-            method: "DELETE",
-        });
-
-        getLists();
+    async function handleDeleteTask(taskID: string){
+        await deleteTask(listID, taskID);
+        handleGetLists();
     };
 
-    async function toggleTask(listID: string, taskID: string){
-        await fetch(`http://localhost:3000/${listID}/task/${taskID}`, {
-            method: "PATCH",
-        });
-
-        getLists();
+    async function handleToggleComplete(taskID: string){
+        await toggleComplete(listID, taskID);
+        handleGetLists();
     };
 
-    async function updateTask(listID: string, taskID: string){
-        await fetch(`http://localhost:3000/${listID}/task/${taskID}/update`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                updatedTask: updatedTask,
-            }),
-        });
-
+    async function handleUpdateTask(taskID: string){
+        await updateTask(listID, taskID, updatedTask);
         setUpdatedTask("");
-        getLists();
+        handleGetLists();
     };
 
     return(
@@ -125,7 +105,7 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                                     </div>
                                 </div>
 
-                                <p onClick={() => {deleteList(); setIsListActions(false)}} className="text-sm my-3 hover:bg-gray-300 cursor-pointer">Archive this list</p>
+                                <p onClick={() => {handleDeleteList(); setIsListActions(false)}} className="text-sm my-3 hover:bg-gray-300 cursor-pointer">Archive this list</p>
 
                             </div>}
                         </div>
@@ -138,7 +118,7 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                         return <div key={index} className={`border border-gray-200 relative flex px-3 py-1.5 bg-white rounded-lg shadow-md cursor-pointer group ${editingTaskId === task._id ? "" : "hover:border-2 hover:border-blue-600"}`}>
                         {/* return <div key={index} className={`border border-gray-200 relative flex px-3 py-1.5 bg-white rounded-lg shadow-md cursor-pointer ${ editingTaskId !== task._id ? "group hover:border-2 hover:border-blue-600" : "" }`}> */}
                             {/* Check Mark */}
-                            <div onClick={() => toggleTask(id, task._id)} className={`${task.completed && editingTaskId !== task._id ? "bg-[rgb(106,154,35)] opacity-100 hover:bg-[rgb(126,174,55)]" : "opacity-0"} 
+                            <div onClick={() => handleToggleComplete(task._id)} className={`${task.completed && editingTaskId !== task._id ? "bg-[rgb(106,154,35)] opacity-100 hover:bg-[rgb(126,174,55)]" : "opacity-0"} 
                             ${editingTaskId === task._id ? "" : "border"} absolute top-1/2 -translate-y-1/2 flex justify-center items-center h-4 w-4 rounded-full
                             group-hover:flex  
                             transition-opacity duration-350 group-hover:opacity-100
@@ -154,7 +134,7 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                                         {task.task}
                                     </div>
 
-                                    <button onClick={async () => {await updateTask(id, task._id); setEditingTaskId(editingTaskId === task._id ? null : task._id)}} className="border px-2 py-0.5 w-fit bg-blue-500 text-white rounded-lg hover:bg-blue-700 active:bg-blue-600 cursor-pointer">Save</button>
+                                    <button onClick={async () => {await handleUpdateTask(task._id); setEditingTaskId(editingTaskId === task._id ? null : task._id)}} className="border px-2 py-0.5 w-fit bg-blue-500 text-white rounded-lg hover:bg-blue-700 active:bg-blue-600 cursor-pointer">Save</button>
                                 </div>
                                 :
                                 <div className={`${task.completed ? "translate-x-6" : "transition-transform duration-600 group-hover:translate-x-6"}`}>
@@ -165,7 +145,7 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                             {/* Delete */}
                             {/* <div className="hidden absolute right-2 top-1/2 -translate-y-1/2 hover:flex"> */}
                             {editingTaskId !== task._id && <div className="hidden absolute right-2 top-1/2 -translate-y-1/2 group-hover:flex gap-1">
-                                <i onClick={() => deleteTask(id, task._id)} className='bx bx-trash text-xl text-gray-700 
+                                <i onClick={() => handleDeleteTask(task._id)} className='bx bx-trash text-xl text-gray-700 
                                 hover:text-red-600 active:text-red-500
                                 transition-transform active:scale-[0.85]
                                 '></i>
@@ -191,7 +171,7 @@ function List({ getLists, listName, taskList = [], id }: ListProps ){
                         <input onChange={(e) => setTask(e.target.value)} type="text" className="border border-gray-300 px-3 py-1 h-16 font-semibold bg-white rounded shadow-md" placeholder="Enter a title or paste a link"/>
 
                         <div onClick={() => setIsAddCard(false)} className="flex gap-2 w-fit">
-                            <button onClick={() => addTask(task)} className="bg-[rgb(24,104,219)] px-2.5 py-1 text-white font-medium tracking-wide rounded-md hover:bg-[rgb(4,74,189)] cursor-pointer">Add card</button>
+                            <button onClick={() => handleAddTask()} className="bg-[rgb(24,104,219)] px-2.5 py-1 text-white font-medium tracking-wide rounded-md hover:bg-[rgb(4,74,189)] cursor-pointer">Add card</button>
                             <div className="flex justify-center items-center rounded hover:bg-gray-300 cursor-pointer">
                                 <i className='bx bx-x text-2xl text-gray-600' ></i>
                             </div>
