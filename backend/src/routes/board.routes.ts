@@ -6,7 +6,7 @@ import {
 
 const router = express.Router();
 
-// GET ALL Boards
+// GET ALL LISTS
 router.get("/", getLists);
 
 // CREATE list
@@ -16,15 +16,15 @@ router.post("/", createList);
 router.delete("/:id", deleteList);
 
 // ADD task
-router.patch("/:id", addTask);
+router.patch("/tasks/:id", addTask);
 
 // DELETE task
-router.delete("/:listID/task/:taskID", deleteTask);
+router.delete("/:listID/tasks/:taskID", deleteTask);
 
 // PATCH task
-router.patch("/:listID/task/:taskID", toggleTask);
+router.patch("/:listID/tasks/:taskID", toggleTask);
 
 // PATCH update task
-router.patch("/:listID/task/:taskID/update", updateTask);
+router.patch("/:listID/tasks/:taskID/update", updateTask);
 
 export default router;
