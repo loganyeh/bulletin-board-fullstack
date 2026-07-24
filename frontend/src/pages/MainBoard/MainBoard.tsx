@@ -8,7 +8,7 @@ import MobileNav from "./MobileNav";
 import FloatingNav from "./FloatingNav";
 import AddAnotherListBtn from "./AddAnotherListBtn";
 import EnterListName from "./EnterListName";
-import List from "./List";
+import List from "./List/List";
 
 // import services
 import { getLists } from "../../services/backend/boardService";
