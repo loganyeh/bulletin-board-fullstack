@@ -25,7 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/", BoardRoutes);
+app.use("/lists", BoardRoutes);
 
 mongoose.connect(MONGO_URI)
     .then(() => {

@@ -8,7 +8,10 @@ import MobileNav from "./MobileNav";
 import FloatingNav from "./FloatingNav";
 import AddAnotherListBtn from "./AddAnotherListBtn";
 import EnterListName from "./EnterListName";
-import List from "./List";
+import List from "./List/List";
+
+// import services
+import { getLists } from "../../services/backend/boardService";
 
 // type alias
 export type Task = {
@@ -17,7 +20,7 @@ export type Task = {
     completed: boolean,
 };
 
-type taskList = {
+export type taskList = {
     _id: string,
     title: string, 
     tasks: Task[],
@@ -27,14 +30,13 @@ function MainBoard(){
     const [isAddAnotherList, setIsAddAnotherList] = useState(false);
     const [board, setBoard] = useState<taskList[]>([]);
 
-    async function getLists(){
-        const res = await fetch(`http://localhost:3000/`);
-        const data: taskList[] = await res.json();
+    async function handleGetLists(){
+        const data = await getLists();
         setBoard(data);
     };
 
     useEffect(() => {
-        getLists();
+        handleGetLists();
     }, []);
 
     return(
@@ -46,13 +48,13 @@ function MainBoard(){
                 {/* Body for Boards */}
                 <div className="flex-1 flex items-start gap-3 p-3 bg-gradient-to-br from-[rgb(113,94,198)] to-[rgb(224,115,188)] overflow-x-scroll scrollbar-hide">
                     {board.map((list, index) => {
-                        return <List key={index} getLists={getLists} listName={list.title} taskList={list.tasks} id={list._id} />
+                        return <List key={index} handleGetLists={handleGetLists} listName={list.title} taskList={list.tasks} listID={list._id} />
                     })}
 
                     {!isAddAnotherList ? 
                         <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
                         : 
-                        <EnterListName setIsAddAnotherList={setIsAddAnotherList} getLists={getLists} />
+                        <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} />
                     }
                 </div>
 
