@@ -1,75 +1,157 @@
-# React + TypeScript + Vite
+# Kanban Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack Kanban board application inspired by Trello that allows users to create lists, manage tasks, update task status, and organize work through a simple drag-and-manage style interface. The application uses a React frontend, Express REST API, MongoDB database, and separate frontend and backend deployments.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Frontend:
+https://kanban-board-dusky-six.vercel.app/
 
-## React Compiler
+Backend:
+https://kanban-board-api-kx63.onrender.com
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+(The backend URL provides REST API endpoints used by the frontend.)
 
-## Expanding the ESLint configuration
+## Screenshots
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Board
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![Board Page](./screenshots/main-board.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### List Management
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+[!Create List](bulletin-board/screenshots/create-list.png)
 
+### Task Management
+
+![Add Task](./screenshots/add-task.png)
+
+
+### Editing Tasks
+
+![Edit Task](./screenshots/edit-task.png)
+
+### Mobile
+
+![Mobile Version](./screenshots/mobile-version.png)
+
+## Features
+
+* Create and delete lists
+* Add tasks to lists
+* Edit existing tasks
+* Delete tasks
+* Toggle task completion status
+* Persistent data storage with MongoDB
+* Responsive user interface
+
+## Tech Stack
+
+### Frontend
+
+* React
+* TypeScript
+* Tailwind CSS
+* Vite
+
+### Backend
+
+* Node.js
+* Express
+* TypeScript
+* MongoDB
+* Mongoose
+
+### Deployment
+
+* MongoDB Atlas
+* Vercel
+* Render
+
+## Project Structure
+
+```text
+bulletin-board/
+├── frontend/
+├── backend/
+├── screenshots/
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Clone Repository
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/loganyeh/kanban-board.git
 ```
+
+### Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+### Backend
+
+```bash
+cd backend
+
+npm install
+
+npm run dev
+```
+
+## Environment Variables
+
+### Frontend (.env)
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+### Backend (.env)
+
+```env
+MONGO_URI=your_mongodb_connection_string
+```
+
+## Key Implementation
+
+* Built reusable React components for lists, tasks, headers, and forms
+* Created a frontend service layer to handle API communication
+* Built a REST API using Express for list and task management
+* Implemented CRUD operations for lists and tasks
+* Created nested routes for managing tasks within specific lists
+* Built Express controllers and routes for handling application logic
+* Created MongoDB schemas and models using Mongoose
+* Used TypeScript to improve type safety across frontend and backend
+* Configured environment variables for local development and production deployment
+* Deployed frontend with Vercel and backend with Render
+
+## API Features
+
+* Retrieve all lists
+* Create new lists
+* Delete lists
+* Add tasks to lists
+* Update task content
+* Toggle task completion status
+* Delete tasks
+
+## Future Improvements
+
+* Add user authentication
+* Add user accounts and personal boards
+* Add drag-and-drop functionality
+* Add board sharing and collaboration
+* Improve validation and error handling
+* Add better loading and error states
+
+## License
+
+This project is for educational and portfolio purposes.
