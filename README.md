@@ -20,13 +20,21 @@ https://kanban-board-api-kx63.onrender.com
 
 ### List Management
 
+#### Create List
 ![Create List](./screenshots/create-list.png)
+
+#### Delete List
 ![Delete List](./screenshots/delete-list.png)
 
 ### Task Management
 
+### Add Task
 ![Add Task](./screenshots/add-task.png)
+
+### Delete Task
 ![Delete Task](./screenshots/delete-task.png)
+
+### Toggle Task
 ![Toggle Task](./screenshots/toggle-task.png)
 
 ### Editing Tasks
