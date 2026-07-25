@@ -17,7 +17,7 @@ import AddCardForm from "./AddCardForm";
 type ListProps = {
     handleGetLists: () => Promise<void>;
     listName: string,
-    taskList?: Task[],
+    taskList: Task[],
     listID: string,
 };
 

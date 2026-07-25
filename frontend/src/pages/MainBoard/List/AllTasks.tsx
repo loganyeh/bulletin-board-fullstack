@@ -3,14 +3,14 @@ import type { Task } from "../MainBoard";
 
 type TasksProp = {
     taskList: Task[],
-    editingTaskId: string,
+    editingTaskId: string | null,
     setEditingTaskId: React.Dispatch<SetStateAction<string | null>>,
     handleDeleteTask: (id: string) => Promise<void>,
     handleToggleComplete: (task_id: string) => Promise<void>,
     handleUpdateTask: (id: string) => Promise<void>,
     setUpdatedTask: React.Dispatch<SetStateAction<string>>,
 };
-
+ 
 function AllTasks({  
     taskList, editingTaskId, setEditingTaskId,  
     handleDeleteTask, handleToggleComplete, handleUpdateTask, 
