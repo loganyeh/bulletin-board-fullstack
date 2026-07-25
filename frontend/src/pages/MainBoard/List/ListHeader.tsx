@@ -1,12 +1,16 @@
 // import
+import type { SetStateAction } from "react";
 import type { Task } from "../MainBoard";
 
 type ListHeaderProps = {
     listName: string,
     taskList: Task[]
-}
+    isListActions: boolean,
+    setIsListActions: React.Dispatch<SetStateAction<boolean>>,
+    handleDeleteList: () => Promise<void>,
+};
 
-function ListHeader({ listName, taskList }: ListHeaderProps ){
+function ListHeader({ listName, taskList, isListActions, setIsListActions, handleDeleteList }: ListHeaderProps ){
     const listActions = [
         "Add card", 
         "Copy list", 
@@ -22,15 +26,19 @@ function ListHeader({ listName, taskList }: ListHeaderProps ){
 
     return(
         <>
-            <div className="border flex justify-between">
+            <div className="flex justify-between">
+                {/* Left Side -- Title of the List */}
                 <h2 className="font-medium">{listName}</h2>
 
+                {/* Right Side -- Num of Tasks & Settings to Delete List */}
                 <div className="flex gap-2 items-center text-gray-600">
                     {/* Num of Tasks */}
                     <p>{taskList.length}</p>
+
                     {/* List Actions Menu */}
                     <div className="relative z-10 flex justify-center items-center rounded hover:bg-gray-300">
                         <i onClick={() => setIsListActions((prev) => !prev)} className='bx bx-dots-horizontal-rounded p-1 text-xl cursor-pointer' ></i>
+                        {/* List Actions Menu after Click */}
                         {isListActions && <div className="border border-gray-300 absolute top-full left-0 mt-2 px-3 w-72 bg-white rounded-lg shadow-md">
                             <div className="border-b flex gap-2 flex-col py-3">
                                 <div className="relative flex justify-end items-center">
