@@ -14,7 +14,7 @@ https://kanban-board-api-kx63.onrender.com
 
 ## Screenshots
 
-### Board
+### - Board -
 
 ![Board Page](./screenshots/main-board.png)
 
@@ -28,13 +28,13 @@ https://kanban-board-api-kx63.onrender.com
 
 ### Task Management
 
-### Add Task
+#### Add Task
 ![Add Task](./screenshots/add-task.png)
 
-### Delete Task
+#### Delete Task
 ![Delete Task](./screenshots/delete-task.png)
 
-### Toggle Task
+#### Toggle Task
 ![Toggle Task](./screenshots/toggle-task.png)
 
 ### Editing Tasks
