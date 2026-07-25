@@ -10,6 +10,13 @@ dotenv.config();
 
 const app = express();
 
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://kanban-board-dusky-six.vercel.app/"
+    ],
+}));
+
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
 

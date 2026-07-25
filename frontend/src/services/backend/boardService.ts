@@ -1,14 +1,15 @@
 import type { taskList } from "../../pages/MainBoard/MainBoard";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getLists(){
-    const res = await fetch(`http://localhost:3000/lists`);
+    const res = await fetch(`${API_URL}/lists`);
     const data: taskList[] = await res.json();
 
     return data;
 };
 
 export async function createList(title: string){
-    const res = await fetch(`http://localhost:3000/lists`, {
+    const res = await fetch(`${API_URL}/lists`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -23,7 +24,7 @@ export async function createList(title: string){
 };
 
 export async function deleteList(listID: string){
-    const res = await fetch(`http://localhost:3000/lists/${listID}`, {
+    const res = await fetch(`${API_URL}/lists/${listID}`, {
         method: "DELETE",
     });
 
@@ -33,7 +34,7 @@ export async function deleteList(listID: string){
 };
 
 export async function addTask(listID: string, task: string){
-    const res = await fetch(`http://localhost:3000/lists/tasks/${listID}`, {
+    const res = await fetch(`${API_URL}/lists/tasks/${listID}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -49,7 +50,7 @@ export async function addTask(listID: string, task: string){
 };
 
 export async function deleteTask(listID: string, taskID: string){
-    const res = await fetch(`http://localhost:3000/lists/${listID}/tasks/${taskID}`, {
+    const res = await fetch(`${API_URL}/lists/${listID}/tasks/${taskID}`, {
         method: "DELETE",
     });
 
@@ -57,7 +58,7 @@ export async function deleteTask(listID: string, taskID: string){
 };
 
 export async function toggleComplete(listID: string, taskID: string){
-    const res = await fetch(`http://localhost:3000/lists/${listID}/tasks/${taskID}`, {
+    const res = await fetch(`${API_URL}/lists/${listID}/tasks/${taskID}`, {
         method: "PATCH",
     });
 
@@ -65,7 +66,7 @@ export async function toggleComplete(listID: string, taskID: string){
 };
 
 export async function updateTask(listID: string, taskID: string, updatedTask: string){
-    const res = await fetch(`http://localhost:3000/lists/${listID}/tasks/${taskID}/update`, {
+    const res = await fetch(`${API_URL}/lists/${listID}/tasks/${taskID}/update`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
