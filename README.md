@@ -18,7 +18,7 @@ https://kanban-board-api-kx63.onrender.com
 
 ![Board Page](./screenshots/main-board.png)
 
-### List Management
+### - List Management -
 
 #### Create List
 ![Create List](./screenshots/create-list.png)
@@ -26,7 +26,7 @@ https://kanban-board-api-kx63.onrender.com
 #### Delete List
 ![Delete List](./screenshots/delete-list.png)
 
-### Task Management
+### - Task Management -
 
 #### Add Task
 ![Add Task](./screenshots/add-task.png)
@@ -37,11 +37,11 @@ https://kanban-board-api-kx63.onrender.com
 #### Toggle Task
 ![Toggle Task](./screenshots/toggle-task.png)
 
-### Editing Tasks
+### - Editing Tasks -
 
 ![Edit Task](./screenshots/edit-task.png)
 
-### Mobile
+### - Mobile -
 
 ![Mobile Version](./screenshots/mobile-version.png)
 
