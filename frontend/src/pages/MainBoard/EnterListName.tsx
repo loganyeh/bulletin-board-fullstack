@@ -10,16 +10,14 @@ import type { taskList } from "./MainBoard";
 
 type EnterListNameProps = {
     setIsAddAnotherList: React.Dispatch<SetStateAction<boolean>>;
-    handleGetLists: () => Promise<void>;
     addListToBoard: (newList: taskList) => void;
 };
 
-function EnterListName({ setIsAddAnotherList, handleGetLists, addListToBoard }: EnterListNameProps ){
+function EnterListName({ setIsAddAnotherList, addListToBoard }: EnterListNameProps ){
     const [title, setTitle] = useState("");
 
     async function handleCreateList(){
         const newList = await createList(title);
-        // handleGetLists();
         addListToBoard(newList);
     };
 

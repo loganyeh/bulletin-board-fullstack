@@ -155,7 +155,7 @@ function MainBoard(){
                         (
                             <>
                                 {board.map((list, index) => {
-                                    return <List key={index} handleGetLists={handleGetLists} 
+                                    return <List key={index} 
                                     listName={list.title} taskList={list.tasks} listID={list._id} 
                                     addTaskToBoard={addTaskToBoard} deleteTaskFromBoard={deleteTaskFromBoard}
                                     deleteListFromBoard={deleteListFromBoard} toggleTaskOnBoard={toggleTaskOnBoard}
@@ -166,7 +166,7 @@ function MainBoard(){
                                 {!isAddAnotherList ? 
                                     <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
                                     : 
-                                    <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} addListToBoard={addListToBoard} />
+                                    <EnterListName setIsAddAnotherList={setIsAddAnotherList} addListToBoard={addListToBoard} />
                                 }
                             </>
                         )

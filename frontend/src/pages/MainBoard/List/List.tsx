@@ -15,7 +15,6 @@ import AddCardForm from "./AddCardForm";
 
 // type alias
 type ListProps = {
-    handleGetLists: () => Promise<void>;
     listName: string,
     taskList: Task[],
     listID: string,
@@ -26,7 +25,7 @@ type ListProps = {
     updateTaskOnBoard: (listID: string, taskID: string, updatedTask: string) => void;
 };
 
-function List({ handleGetLists, listName, taskList = [], listID, 
+function List({ listName, taskList = [], listID, 
     addTaskToBoard, deleteTaskFromBoard, deleteListFromBoard,
     toggleTaskOnBoard, updateTaskOnBoard
     }: ListProps ){
@@ -38,33 +37,28 @@ function List({ handleGetLists, listName, taskList = [], listID,
 
     async function handleDeleteList(){
         await deleteList(listID);
-        // await handleGetLists();
         deleteListFromBoard(listID);
     };
 
     async function handleAddTask(){
         const newTask = await addTask(listID, task);
         setTask("");
-        // await handleGetLists();
         addTaskToBoard(listID, newTask);
     };
 
     async function handleDeleteTask(taskID: string){
         await deleteTask(listID, taskID);
-        // await handleGetLists();
         deleteTaskFromBoard(listID, taskID);
     };
 
     async function handleToggleComplete(taskID: string){
         await toggleComplete(listID, taskID);
-        // await handleGetLists();
         toggleTaskOnBoard(listID, taskID);
     };
 
     async function handleUpdateTask(taskID: string){
         await updateTask(listID, taskID, updatedTask);
         setUpdatedTask("");
-        // await handleGetLists();
         updateTaskOnBoard(listID, taskID, updatedTask);
     };
 
