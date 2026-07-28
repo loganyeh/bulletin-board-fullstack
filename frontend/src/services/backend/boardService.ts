@@ -23,15 +23,21 @@ export async function createList(title: string){
     return data;
 };
 
-export async function deleteList(listID: string){
+export async function deleteList(listID: string) {
+    console.log("Deleting:", listID);
+
     const res = await fetch(`${API_URL}/lists/${listID}`, {
         method: "DELETE",
     });
 
+    console.log("Status:", res.status);
+
     const data = await res.json();
 
+    console.log(data);
+
     return data;
-};
+}
 
 export async function addTask(listID: string, task: string){
     const res = await fetch(`${API_URL}/lists/tasks/${listID}`, {

@@ -39,6 +39,89 @@ function MainBoard(){
         setLoading(false);
     };
 
+    function addTaskToBoard(listID: string, newTask: Task) {
+        setBoard(prev =>
+            prev.map(list =>
+                list._id === listID
+                    ? 
+                        {
+                            ...list,
+                            tasks: [...list.tasks, newTask]
+                        }
+                    : 
+                        list
+            )
+        );
+    };
+
+    function deleteTaskFromBoard(listID: string, taskID: string){
+        setBoard(prev =>
+            prev.map(list =>
+                list._id === listID
+                    ? {
+                        ...list,
+                        tasks: list.tasks.filter(
+                            task => task._id !== taskID
+                        )
+                    }
+                    : list
+            )
+        );
+    };
+
+    function addListToBoard(newList: taskList){
+        setBoard(prev => [
+            ...prev,
+            newList
+        ])
+    };
+
+    function deleteListFromBoard(listID: string){
+        setBoard(prev =>
+            prev.filter(list => list._id !== listID)
+        );    
+    };
+
+    function toggleTaskOnBoard(listID: string, taskID: string){
+        setBoard(prev =>
+            prev.map(list =>
+                list._id === listID
+                    ? {
+                        ...list,
+                        tasks: list.tasks.map(task =>
+                            task._id === taskID
+                                ? {
+                                    ...task,
+                                    completed: !task.completed
+                                }
+                                : task
+                        )
+                    }
+                    : list
+            )
+        );
+    };
+
+    function updateTaskOnBoard(listID: string, taskID: string, updatedTask: string){
+        setBoard(prev =>
+            prev.map(list =>
+                list._id === listID
+                    ? {
+                        ...list,
+                        tasks: list.tasks.map(task =>
+                            task._id === taskID
+                                ? {
+                                    ...task,
+                                    task: updatedTask
+                                }
+                                : task
+                        )
+                    }
+                    : list
+            )
+        );
+    };
+
     useEffect(() => {
         handleGetLists();
     }, []);
@@ -72,13 +155,18 @@ function MainBoard(){
                         (
                             <>
                                 {board.map((list, index) => {
-                                    return <List key={index} handleGetLists={handleGetLists} listName={list.title} taskList={list.tasks} listID={list._id} />
+                                    return <List key={index} handleGetLists={handleGetLists} 
+                                    listName={list.title} taskList={list.tasks} listID={list._id} 
+                                    addTaskToBoard={addTaskToBoard} deleteTaskFromBoard={deleteTaskFromBoard}
+                                    deleteListFromBoard={deleteListFromBoard} toggleTaskOnBoard={toggleTaskOnBoard}
+                                    updateTaskOnBoard={updateTaskOnBoard}
+                                    />
                                 })}
 
                                 {!isAddAnotherList ? 
                                     <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
                                     : 
-                                    <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} />
+                                    <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} addListToBoard={addListToBoard} />
                                 }
                             </>
                         )
