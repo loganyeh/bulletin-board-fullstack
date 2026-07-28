@@ -19,9 +19,17 @@ type ListProps = {
     listName: string,
     taskList: Task[],
     listID: string,
+    addTaskToBoard: (listID: string, newTask: Task) => void;
+    deleteTaskFromBoard: (listID: string, taskID: string) => void;
+    deleteListFromBoard: (listID: string) => void;
+    toggleTaskOnBoard: (listID: string, taskID: string) => void;
+    updateTaskOnBoard: (listID: string, taskID: string, updatedTask: string) => void;
 };
 
-function List({ handleGetLists, listName, taskList = [], listID }: ListProps ){
+function List({ handleGetLists, listName, taskList = [], listID, 
+    addTaskToBoard, deleteTaskFromBoard, deleteListFromBoard,
+    toggleTaskOnBoard, updateTaskOnBoard
+    }: ListProps ){
     const [isAddCard, setIsAddCard] = useState(false);
     const [isListActions, setIsListActions] = useState(false);
     const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
@@ -30,36 +38,42 @@ function List({ handleGetLists, listName, taskList = [], listID }: ListProps ){
 
     async function handleDeleteList(){
         await deleteList(listID);
-        await handleGetLists();
+        // await handleGetLists();
+        deleteListFromBoard(listID);
     };
 
     async function handleAddTask(){
-        await addTask(listID, task);
+        const newTask = await addTask(listID, task);
         setTask("");
-        await handleGetLists();
+        // await handleGetLists();
+        addTaskToBoard(listID, newTask);
     };
 
     async function handleDeleteTask(taskID: string){
         await deleteTask(listID, taskID);
-        await handleGetLists();
+        // await handleGetLists();
+        deleteTaskFromBoard(listID, taskID);
     };
 
     async function handleToggleComplete(taskID: string){
         await toggleComplete(listID, taskID);
-        await handleGetLists();
+        // await handleGetLists();
+        toggleTaskOnBoard(listID, taskID);
     };
 
     async function handleUpdateTask(taskID: string){
         await updateTask(listID, taskID, updatedTask);
         setUpdatedTask("");
-        await handleGetLists();
+        // await handleGetLists();
+        updateTaskOnBoard(listID, taskID, updatedTask);
     };
 
     return(
         <>
             <div className="flex gap-3 flex-col justify-between px-4 py-2 min-h-[88px] w-72 bg-gray-100 rounded-xl shrink-0">
                 {/* List Header and Name and List Actions */}
-                <ListHeader listName={listName} taskList={taskList} isListActions={isListActions} setIsListActions={setIsListActions} handleDeleteList={handleDeleteList} />
+                <ListHeader listName={listName} taskList={taskList} isListActions={isListActions} setIsListActions={setIsListActions}
+                handleDeleteList={handleDeleteList} />
 
                 {/* List of TASKS */}
                 {taskList.length > 0 && <AllTasks taskList={taskList} 

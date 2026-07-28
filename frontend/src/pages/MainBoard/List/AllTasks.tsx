@@ -48,7 +48,7 @@ function AllTasks({
                             </div>
                         }
 
-                        {/* Delete */}
+                        {/* Delete and Edit */}
                         {/* <div className="hidden absolute right-2 top-1/2 -translate-y-1/2 hover:flex"> */}
                         {editingTaskId !== task._id && <div className="hidden absolute right-2 top-1/2 -translate-y-1/2 group-hover:flex gap-1">
                             <i onClick={() => handleDeleteTask(task._id)} className='bx bx-trash text-xl text-gray-700 

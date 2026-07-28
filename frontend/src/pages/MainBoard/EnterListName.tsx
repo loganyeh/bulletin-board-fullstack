@@ -5,17 +5,22 @@ import type { SetStateAction } from "react";
 // import services
 import { createList } from "../../services/backend/boardService";
 
+// import types
+import type { taskList } from "./MainBoard";
+
 type EnterListNameProps = {
     setIsAddAnotherList: React.Dispatch<SetStateAction<boolean>>;
     handleGetLists: () => Promise<void>;
+    addListToBoard: (newList: taskList) => void;
 };
 
-function EnterListName({ setIsAddAnotherList, handleGetLists }: EnterListNameProps ){
+function EnterListName({ setIsAddAnotherList, handleGetLists, addListToBoard }: EnterListNameProps ){
     const [title, setTitle] = useState("");
 
     async function handleCreateList(){
-        await createList(title);
-        handleGetLists();
+        const newList = await createList(title);
+        // handleGetLists();
+        addListToBoard(newList);
     };
 
     return(
