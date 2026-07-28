@@ -51,7 +51,7 @@ function MainBoard(){
 
                 {/* Body for Boards */}
                 <div className="flex-1 flex items-start gap-3 p-3 bg-gradient-to-br from-[rgb(113,94,198)] to-[rgb(224,115,188)] overflow-x-scroll scrollbar-hide">
-                    {!loading ? 
+                    {loading ? 
                         (
                             <>
                                 {Array.from({ length: 2 }).map((_, index) => {
