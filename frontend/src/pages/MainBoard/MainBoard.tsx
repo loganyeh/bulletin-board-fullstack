@@ -12,6 +12,7 @@ import List from "./List/List";
 
 // import services
 import { getLists } from "../../services/backend/boardService";
+import ListSkeleton from "./ListSkeleton";
 
 // type alias
 export type Task = {
@@ -27,12 +28,15 @@ export type taskList = {
 };
 
 function MainBoard(){
+    const [loading, setLoading] = useState(false);
     const [isAddAnotherList, setIsAddAnotherList] = useState(false);
     const [board, setBoard] = useState<taskList[]>([]);
 
     async function handleGetLists(){
+        setLoading(true);
         const data = await getLists();
         setBoard(data);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -47,16 +51,40 @@ function MainBoard(){
 
                 {/* Body for Boards */}
                 <div className="flex-1 flex items-start gap-3 p-3 bg-gradient-to-br from-[rgb(113,94,198)] to-[rgb(224,115,188)] overflow-x-scroll scrollbar-hide">
-                    {board.map((list, index) => {
-                        return <List key={index} handleGetLists={handleGetLists} listName={list.title} taskList={list.tasks} listID={list._id} />
-                    })}
+                    {!loading ? 
+                        (
+                            <>
+                                {Array.from({ length: 2 }).map((_, index) => {
+                                    return <ListSkeleton key={index} />
+                                })}
 
-                    {!isAddAnotherList ? 
-                        <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
-                        : 
-                        <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} />
+                                <div className="flex justify-start items-center px-3 py-2 h-full max-h-[44px] w-68 bg-white/30 text-white rounded-xl shrink-0">
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex gap-1.5 items-center">
+                                            <i className='bx bx-plus text-xl' ></i>
+                                            <p className="font-medium">Add another list</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )
+                        :
+                        (
+                            <>
+                                {board.map((list, index) => {
+                                    return <List key={index} handleGetLists={handleGetLists} listName={list.title} taskList={list.tasks} listID={list._id} />
+                                })}
+
+                                {!isAddAnotherList ? 
+                                    <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
+                                    : 
+                                    <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} />
+                                }
+                            </>
+                        )
                     }
                 </div>
+
 
                 <MobileNav />
                 <FloatingNav />
