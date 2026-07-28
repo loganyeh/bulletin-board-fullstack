@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://kanban-board-dusky-six.vercel.app/"
+        "https://kanban-board-dusky-six.vercel.app"
     ],
 }));
 
@@ -24,7 +24,6 @@ if(!MONGO_URI) {
     throw new Error("MONGO_URI is missing");
 };
 
-app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
