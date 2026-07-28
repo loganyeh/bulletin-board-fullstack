@@ -36,23 +36,23 @@ function List({ handleGetLists, listName, taskList = [], listID }: ListProps ){
     async function handleAddTask(){
         await addTask(listID, task);
         setTask("");
-        handleGetLists();
+        await handleGetLists();
     };
 
     async function handleDeleteTask(taskID: string){
         await deleteTask(listID, taskID);
-        handleGetLists();
+        await handleGetLists();
     };
 
     async function handleToggleComplete(taskID: string){
         await toggleComplete(listID, taskID);
-        handleGetLists();
+        await handleGetLists();
     };
 
     async function handleUpdateTask(taskID: string){
         await updateTask(listID, taskID, updatedTask);
         setUpdatedTask("");
-        handleGetLists();
+        await handleGetLists();
     };
 
     return(
