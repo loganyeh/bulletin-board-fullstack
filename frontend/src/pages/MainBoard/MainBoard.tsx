@@ -12,6 +12,7 @@ import List from "./List/List";
 
 // import services
 import { getLists } from "../../services/backend/boardService";
+import ListSkeleton from "./ListSkeleton";
 
 // type alias
 export type Task = {
@@ -27,12 +28,15 @@ export type taskList = {
 };
 
 function MainBoard(){
+    const [loading, setLoading] = useState(false);
     const [isAddAnotherList, setIsAddAnotherList] = useState(false);
     const [board, setBoard] = useState<taskList[]>([]);
 
     async function handleGetLists(){
+        setLoading(true);
         const data = await getLists();
         setBoard(data);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -47,16 +51,27 @@ function MainBoard(){
 
                 {/* Body for Boards */}
                 <div className="flex-1 flex items-start gap-3 p-3 bg-gradient-to-br from-[rgb(113,94,198)] to-[rgb(224,115,188)] overflow-x-scroll scrollbar-hide">
-                    {board.map((list, index) => {
-                        return <List key={index} handleGetLists={handleGetLists} listName={list.title} taskList={list.tasks} listID={list._id} />
-                    })}
+                    {loading ? 
+                        Array.from({ length: 2 }).map((_, index) => {
+                            return <ListSkeleton key={index} />
+                        })
+                        :
+                        (
+                            <>
+                                {board.map((list, index) => {
+                                    return <List key={index} handleGetLists={handleGetLists} listName={list.title} taskList={list.tasks} listID={list._id} />
+                                })}
 
-                    {!isAddAnotherList ? 
-                        <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
-                        : 
-                        <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} />
+                                {!isAddAnotherList ? 
+                                    <AddAnotherListBtn setIsAddAnotherList={setIsAddAnotherList} />
+                                    : 
+                                    <EnterListName setIsAddAnotherList={setIsAddAnotherList} handleGetLists={handleGetLists} />
+                                }
+                            </>
+                        )
                     }
                 </div>
+
 
                 <MobileNav />
                 <FloatingNav />
